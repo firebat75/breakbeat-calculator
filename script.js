@@ -32,14 +32,16 @@ function operate(operator, x, y) {
 };
 
 
-var display = ""; //What is shown on the calculator display
+var display = " "; //What is shown on the calculator display
 var decimal = false; // is there a decimal in curr
 
 var curr = ""; // current value being inputted
 var inputs = [] // inputs into the calculator (numbers and operators)
+var lastcalc = ""; // last equation inputted
 
 const buttons = document.querySelectorAll('.button');
 const displayScreen = document.querySelector('.display');
+const last = document.querySelector('.prevcalc');
 displayScreen.textContent = display;
 
 
@@ -100,12 +102,18 @@ buttons.forEach(button => {
 
         } else if (button.id == "=") { // equals input
             if (curr != "") {
-                inputs.push(parseFloat(curr));
+                if (curr == ".") {
+                    inputs.push(0);
+                } else {
+                    inputs.push(parseFloat(curr));
+                }
             }
 
             if ("+-*/".includes(inputs.slice(-1))) {
                 inputs = inputs.slice(0, -1);
             }
+
+            lastcalc = display;
 
             calculation = calculate(inputs)[0];
             display = calculation.toString();
@@ -125,11 +133,21 @@ buttons.forEach(button => {
                 display += button.id;
             
             } else {
-                decimal = false;
-                inputs.push(parseFloat(curr));
-                inputs.push(button.id);
-                curr = "";
-                display += button.id;
+                if (curr != "") {
+                    if (curr == ".") {
+                        inputs.push(0);
+                        decimal = false;
+                        inputs.push(button.id);
+                        curr = "";
+                        display += button.id;
+                    } else {
+                        inputs.push(parseFloat(curr));
+                        decimal = false;
+                        inputs.push(button.id);
+                        curr = "";
+                        display += button.id;
+                    }
+                }
             }
 
 
@@ -137,18 +155,22 @@ buttons.forEach(button => {
             if (display.length > 0) {
                 if (display.slice(-1) == inputs.slice(-1).toString().slice(-1)) {
                     dig = inputs.pop().toString();
+                    if (dig.slice(-1) == ",") {
+                        decimal = false;
+                    }
                     display = display.slice(0, -1);
                     if (dig.length > 1) {
                         inputs.push(parseFloat(dig.slice(0, -1)));
                     }
                 } else {
+                    if (display.slice(-1) == ".") {
+                        decimal = false;
+                    }
                     display = display.slice(0, -1);
                     curr = "";
                 }
             } 
-        
-        
-            
+      
 
         } else if (button.id == ".") { // decimal input
             if (!decimal) {
@@ -165,6 +187,7 @@ buttons.forEach(button => {
         }    
         inputsP.textContent = inputs;
 
+        last.textContent = lastcalc;
         displayScreen.textContent = display;
         if (curr == "Don't divide by 0 lol") {
             curr = "";

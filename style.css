@@ -26,3 +26,12 @@
     text-align: right;
     padding-right: 0.5rem;
 }
+
+.prevcalc {
+    border: 1px solid black;
+    width: 8rem;
+    height: 1rem;
+    text-align: right;
+    padding-right: 0.5rem;
+    font-size: 0.75rem;
+}
