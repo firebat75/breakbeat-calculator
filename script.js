@@ -143,6 +143,7 @@ buttons.forEach(button => {
                     }
                 } else {
                     display = display.slice(0, -1);
+                    curr = "";
                 }
             } 
         
