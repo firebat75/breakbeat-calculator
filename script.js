@@ -36,8 +36,7 @@ var display = ""; //What is shown on the calculator display
 var decimal = false; // is there a decimal in curr
 
 var curr = ""; // current value being inputted
-var nums = [] // array of inputted nums IN ORDER
-var symbols = []; //array of inputted symbols IN ORDER
+var inputs = [] // inputs into the calculator (numbers and operators)
 
 const buttons = document.querySelectorAll('.button');
 const displayScreen = document.querySelector('.display');
@@ -45,78 +44,110 @@ displayScreen.textContent = display;
 
 
 
-
 //TEST VARIABLES TO SEE WHATS HAPPENING
-const numbers = document.createElement('p');
-numbers.textContent = nums;
-const syms = document.createElement('p');
-syms.textContent = symbols;
+const inputsP = document.createElement('p');
+
+inputsP.textContent = inputs;
 const main = document.querySelector('.main');
-main.appendChild(numbers);
-main.appendChild(syms);
+main.appendChild(inputsP);
 
 
 
-function splitter(text) {
-    var items = display.split
+function calculate(arr) {
+    var mult = arr.indexOf("*");
+    while (mult != -1) {
+        arr.splice(mult-1, 3, operate("*", arr[mult-1], arr[mult+1]));
+        console.log(arr);
+        mult = arr.indexOf("*");
+    }
+
+    var div = arr.indexOf("/");
+    while (div != -1) {
+        arr.splice(div-1, 3, operate("/", arr[div-1], arr[div+1]));
+        console.log(arr);
+        div = arr.indexOf("/");
+    }
+
+    var add = arr.indexOf("+");
+    while (add != -1) {
+        arr.splice(add-1, 3, operate("+", arr[add-1], arr[add+1]));
+        console.log(arr);
+        add = arr.indexOf("+");
+    }
+
+    var sub = arr.indexOf("-");
+    while (sub != -1) {
+        arr.splice(sub-1, 3, operate("-", arr[sub-1, arr[sub+1]]));
+        console.log(arr);
+        sub = arr.indexOf("-");
+    }
+    return arr;
 }
+
 
 buttons.forEach(button => {
     button.addEventListener('click', (e) => {
 
-        if (button.id == "clear") {
-            display = "";
-            displayScreen.textContent = display;
+        if (button.id == "clear") { // C button input
+            inputs = []
+            display = ""
 
-        } else if (button.id == "=") {
-            display = "";
+
+        } else if (button.id == "=") { // equals input
             if (curr != "") {
-                nums.push(parseFloat(curr));
-                curr = "";}
-
-            if (symbols.length >= nums.length) {
-                symbols = symbols.slice(0, -1);
-            }
-
-        } else if ("+-*/".includes(button.id)) { // symbol input cases
-            if (display.length == 0) {
-                    display = "";
-
-            } else if ((display.length > 0) && ("+-*/".includes(display.slice(-1)))) {
-                display = display.slice(0, -1);
-                display += button.id;
-                displayScreen.textContent = display;
-                decimal = false;
-                symbols.pop();
-                symbols.push(button.id);
-            
-            } else {
-                display += button.id;
-                displayScreen.textContent = display;
-                decimal = false;
-                symbols.push(button.id);
-                nums.push(parseFloat(curr));
+                inputs.push(parseFloat(curr));
                 curr = "";
             }
 
-        } else if ((display.length > 0) && (button.id == "back")) {
-            display = display.slice(0, -1);
-            displayScreen.textContent = display;
+            if ("+-*/".includes(inputs.slice(-1))) {
+                inputs = inputs.slice(0, -1);
+            }
 
-        } else if (button.id == ".") {
+
+        } else if ("+-*/".includes(button.id)) { // operator inputs
+            if (display.length == 0) {
+                
+
+            } else if ("+-*/".includes(display.slice(-1))) {
+                decimal = false;
+                inputs.pop();
+                inputs.push(button.id);
+                display = display.slice(0, -1);
+                display += button.id;
+            
+            } else {
+                decimal = false;
+                inputs.push(parseFloat(curr));
+                inputs.push(button.id);
+                curr = "";
+                display += button.id;
+            }
+
+
+        // } else if ((inputs.length > 0) && (button.id == "back")) { // backspace button
+        //     display = display.slice(0, -1);
+        //     if ("+-*/".includes(inputs.slice(-1))) {
+        //         inputs.pop();
+        //     } else {
+        //         inputs.slice(-1) = inputs.slice(-1).slice(0, -1);
+        //     }
+            
+
+        } else if (button.id == ".") { // decimal input
             if (!decimal) {
-            display += button.id;
-            displayScreen.textContent = display;
-            curr += ".";
+                curr += ".";
+                display += ".";
             }
             decimal = true;
 
-        } else {
-            display += button.id;
-            displayScreen.textContent = display;
+
+        } else { // regular numbers inputs
             curr += button.id;
+            display += button.id;
+
         }    
-        numbers.textContent = nums;
-        syms.textContent = symbols;
+        inputsP.textContent = inputs;
+
+        displayScreen.textContent = display;
     });
 });
