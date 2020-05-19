@@ -133,13 +133,20 @@ buttons.forEach(button => {
             }
 
 
-        // } else if ((inputs.length > 0) && (button.id == "back")) { // backspace button
-        //     display = display.slice(0, -1);
-        //     if ("+-*/".includes(inputs.slice(-1))) {
-        //         inputs.pop();
-        //     } else {
-        //         inputs.slice(-1) = inputs.slice(-1).slice(0, -1);
-        //     }
+        } else if (button.id == "back") { // backspace button
+            if (display.length > 0) {
+                if (display.slice(-1) == inputs.slice(-1).toString().slice(-1)) {
+                    dig = inputs.pop().toString();
+                    display = display.slice(0, -1);
+                    if (dig.length > 1) {
+                        inputs.push(parseFloat(dig.slice(0, -1)));
+                    }
+                } else {
+                    display = display.slice(0, -1);
+                }
+            } 
+        
+        
             
 
         } else if (button.id == ".") { // decimal input
