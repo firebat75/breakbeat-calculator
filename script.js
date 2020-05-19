@@ -98,6 +98,7 @@ buttons.forEach(button => {
             inputs = [];
             display = "";
             curr = "";
+            lastcalc = "";
 
 
         } else if (button.id == "=") { // equals input
