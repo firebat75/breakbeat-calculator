@@ -1,18 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+
+/* html, body
+{
+    width: 100%;
+    height: 100%;
+} */
+
+body {
+    width: 100%;
+    height: 100%;
+    background-attachment: fixed;
+    background: rgb(226,89,149);
+background: radial-gradient(circle, rgba(226,89,149,1) 0%, rgba(148,187,233,1) 100%);
+}
+
 .main {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .calculator {
-    border: 1px solid black;
+    border: 1px solid white;
     font-family: 'Times New Roman';
     font-style: normal;
     font-weight: normal;
+    color: white;
 }
 
 .button {
-    border: 1px solid black;
-    width: 2rem;
-    height: 2rem;
+    border: 1px solid white;
+    width: 5rem;
+    height: 5rem;
     text-align: center;
+    font-size: 3rem;
 }
 
 .button:hover {
@@ -20,18 +42,20 @@
 }
 
 .display {
-    border: 1px solid black;
-    width: 8rem;
-    height: 2rem;
+    border: 1px solid white;
+    width: 14rem;
+    height: 5rem;
+    font-size: 4rem;
     text-align: right;
+    text-shadow: 0 0 8px #e5f048;
     padding-right: 0.5rem;
 }
 
 .prevcalc {
-    border: 1px solid black;
+    border: 1px solid white;
     width: 8rem;
-    height: 1rem;
+    height: 3rem;
     text-align: right;
     padding-right: 0.5rem;
-    font-size: 0.75rem;
+    font-size: 2rem;
 }

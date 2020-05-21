@@ -46,15 +46,6 @@ displayScreen.textContent = display;
 
 
 
-//TEST VARIABLES TO SEE WHATS HAPPENING
-const inputsP = document.createElement('p');
-inputsP.style.fontFamily = "Courier New, Courier, monospace"
-inputsP.textContent = inputs;
-const main = document.querySelector('.main');
-main.appendChild(inputsP);
-
-
-
 function calculate(arr) {
     var mult = arr.indexOf("*");
     while (mult != -1) {
@@ -154,9 +145,16 @@ buttons.forEach(button => {
 
         } else if (button.id == "back") { // backspace button
             if (display.length > 0) {
-                if (display.slice(-1) == inputs.slice(-1).toString().slice(-1)) {
+
+                if (curr.length > 0 && inputs == []) {
+                    if (display.slice(-1) == ".") {
+                        decimal = false;
+                    }
+                    curr = curr.slice(0, -1);
+                    display = display.slice(0, -1);
+                } else if (display.slice(-1) == inputs.slice(-1).toString().slice(-1)) {
                     dig = inputs.pop().toString();
-                    if (dig.slice(-1) == ",") {
+                    if (dig.slice(-1) == ".") {
                         decimal = false;
                     }
                     display = display.slice(0, -1);
@@ -168,9 +166,26 @@ buttons.forEach(button => {
                         decimal = false;
                     }
                     display = display.slice(0, -1);
-                    curr = "";
+                    curr = curr.slice(0, -1);
                 }
-            } 
+
+                // if (display.slice(-1) == inputs.slice(-1).toString().slice(-1)) {
+                //     dig = inputs.pop().toString();
+                //     if (dig.slice(-1) == ".") {
+                //         decimal = false;
+                //     }
+                //     display = display.slice(0, -1);
+                //     if (dig.length > 1) {
+                //         inputs.push(parseFloat(dig.slice(0, -1)));
+                //     }
+                // } else {
+                //     if (display.slice(-1) == ".") {
+                //         decimal = false;
+                //     }
+                //     display = display.slice(0, -1);
+                //     curr = "";
+                // }
+            }
       
 
         } else if (button.id == ".") { // decimal input
@@ -186,7 +201,6 @@ buttons.forEach(button => {
             display += button.id;
 
         }    
-        inputsP.textContent = inputs;
 
         last.textContent = lastcalc;
         displayScreen.textContent = display;
