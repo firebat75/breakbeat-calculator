@@ -45,12 +45,14 @@ background: radial-gradient(circle, rgba(226,89,149,1) 0%, rgba(148,187,233,1) 1
 
 .display {
     border: 1px solid white;
-    /* width: 14rem; */
     height: 5rem;
     font-size: 4rem;
     text-align: right;
-    text-shadow: 0 0 8px #e5f048;
     padding-right: 0.5rem;
+}
+
+.glow {
+    text-shadow: 0 0 8px #e5f048;
 }
 
 .prevcalc {

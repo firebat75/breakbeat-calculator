@@ -97,7 +97,10 @@ buttons.forEach(button => {
 
 
         } else if (button.id == "=") { // equals input
+
             displayScreen.style.fontSize = '4rem';
+            displayScreen.className += ' glow';
+
             if (curr != "") {
                 if (curr == ".") {
                     inputs.push(0);
@@ -174,22 +177,6 @@ buttons.forEach(button => {
                     curr = curr.slice(0, -1);
                 }
 
-                // if (display.slice(-1) == inputs.slice(-1).toString().slice(-1)) {
-                //     dig = inputs.pop().toString();
-                //     if (dig.slice(-1) == ".") {
-                //         decimal = false;
-                //     }
-                //     display = display.slice(0, -1);
-                //     if (dig.length > 1) {
-                //         inputs.push(parseFloat(dig.slice(0, -1)));
-                //     }
-                // } else {
-                //     if (display.slice(-1) == ".") {
-                //         decimal = false;
-                //     }
-                //     display = display.slice(0, -1);
-                //     curr = "";
-                // }
             }
       
 
