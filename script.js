@@ -44,6 +44,9 @@ const displayScreen = document.querySelector('.display');
 const last = document.querySelector('.prevcalc');
 displayScreen.textContent = display;
 
+var displaySize = window.getComputedStyle(displayScreen, null).getPropertyValue('font-size');
+var fs = parseFloat(displaySize);
+
 
 
 function calculate(arr) {
@@ -86,6 +89,7 @@ buttons.forEach(button => {
     button.addEventListener('click', (e) => {
 
         if (button.id == "clear") { // C button input
+            displayScreen.style.fontSize = '4rem';
             inputs = [];
             display = "";
             curr = "";
@@ -211,10 +215,13 @@ buttons.forEach(button => {
             inputs = [];
         }
 
-        var displaySize = window.getComputedStyle(displayScreen, null).getPropertyValue('font-size');
-        var fs = parseFloat(displaySize);
+
         if (displayScreen.clientWidth > 468) {
-            displayScreen.style.fontSize = `${468/display.length}px`;
+            displayScreen.style.fontSize = `${920/display.length}px`;
+        }
+
+        if (last.clientWidth > 468) {
+            last.style.fontSize = `${920/lastcalc.length}px`;
         }
     });
 });
