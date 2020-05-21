@@ -93,6 +93,7 @@ buttons.forEach(button => {
 
 
         } else if (button.id == "=") { // equals input
+            displayScreen.style.fontSize = '4rem';
             if (curr != "") {
                 if (curr == ".") {
                     inputs.push(0);
@@ -107,7 +108,7 @@ buttons.forEach(button => {
 
             lastcalc = display;
 
-            calculation = calculate(inputs)[0];
+            calculation = calculate(inputs);
             display = calculation.toString();
             curr = display;
             inputs = [];
@@ -208,6 +209,12 @@ buttons.forEach(button => {
             curr = "";
             display = "";
             inputs = [];
+        }
+
+        var displaySize = window.getComputedStyle(displayScreen, null).getPropertyValue('font-size');
+        var fs = parseFloat(displaySize);
+        if (displayScreen.clientWidth > 468) {
+            displayScreen.style.fontSize = `${468/display.length}px`;
         }
     });
 });

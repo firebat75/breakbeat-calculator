@@ -22,6 +22,7 @@ background: radial-gradient(circle, rgba(226,89,149,1) 0%, rgba(148,187,233,1) 1
 }
 
 .calculator {
+    table-layout: fixed;
     border: 1px solid white;
     font-family: 'Times New Roman';
     font-style: normal;
@@ -31,19 +32,20 @@ background: radial-gradient(circle, rgba(226,89,149,1) 0%, rgba(148,187,233,1) 1
 
 .button {
     border: 1px solid white;
-    width: 5rem;
-    height: 5rem;
+    width: 7rem;
+    height: 7rem;
     text-align: center;
     font-size: 3rem;
 }
 
 .button:hover {
-    background-color: yellow;
+    background-color: rgba(238, 255, 0, 0.397);
+    
 }
 
 .display {
     border: 1px solid white;
-    width: 14rem;
+    /* width: 14rem; */
     height: 5rem;
     font-size: 4rem;
     text-align: right;
